@@ -21,7 +21,7 @@ import (
 )
 
 func hello1(w http.ResponseWriter, r *http.Request) {
-	resp, err := http.Get("http://localhost:8081/hello/portal")
+	resp, err := http.Get("http://server1:8081/hello/portal")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -35,7 +35,7 @@ func hello1(w http.ResponseWriter, r *http.Request) {
 }
 
 func hello2(w http.ResponseWriter, r *http.Request) {
-	resp, _ := http.Get("http://localhost:8082/hello/portal")
+	resp, _ := http.Get("http://server2:8082/hello/portal")
 	defer func() {
 		if resp != nil && resp.Body != nil {
 			resp.Body.Close()
