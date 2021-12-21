@@ -25,14 +25,22 @@ func hello1(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if resp != nil && resp.Body != nil {
+			resp.Body.Close()
+		}
+	}()
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Fprintf(w, "Server1 say: %s \n ", string(body))
 }
 
 func hello2(w http.ResponseWriter, r *http.Request) {
 	resp, _ := http.Get("http://localhost:8082/hello/portal")
-	defer resp.Body.Close()
+	defer func() {
+		if resp != nil && resp.Body != nil {
+			resp.Body.Close()
+		}
+	}()
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Fprintf(w, "Server2 say: %s \n ", string(body))
 }
